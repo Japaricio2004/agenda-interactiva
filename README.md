@@ -2,6 +2,7 @@
 
 Este es un proyecto web de calendario interactivo y responsivo, desarrollado con **HTML**, **JavaScript** y **Tailwind CSS**. Permite a los usuarios agregar, guardar y copiar tareas por día de forma intuitiva. Incluye un diseño moderno con efectos 3D, soporte de tema claro/oscuro y se adapta perfectamente a cualquier dispositivo.
 
+👉 **Haz clic aquí para probarla:** [https://agenda-interactiva-ja.netlify.app/](https://agenda-interactiva-ja.netlify.app/)
 ---
 
 ## 🚀 Características
