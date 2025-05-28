@@ -31,7 +31,6 @@ for (let day = 1; day <= daysInMonth; day++) {
     calendar.appendChild(dayCard);
 }
 }
-
 function openModal(date) {
 modalDate.textContent = `Tareas del ${date}`;
 taskInput.value = localStorage.getItem(date) || "";
