@@ -20,7 +20,7 @@
 ## 🛠️ Tecnologías utilizadas
 
 - **HTML5** — Estructura semántica y ligera.
-- **JavaScript Vanilla** — Lógica funcional sin frameworks externos.
+- **JavaScript** — Lógica funcional sin frameworks externos.
 - **Tailwind CSS** — Estilizado rápido, limpio y adaptativo.
 - **CSS personalizado** — Para animaciones 3D, transiciones y efectos visuales.
 - **LocalStorage** — Persistencia del tema (modo claro/oscuro).
