@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agenda 3D - Calendario Interactivo</title>
+<link rel="icon" href="images/agenda.png" type="image/png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="styles.css" />
+<style>
+    * {
+    scroll-behavior: smooth;
+    }
+    body.light {
+    background-color: #f0f4f8;
+    color: #1a202c;
+    }
+    body.light #taskModal {
+    background-color: rgba(255, 255, 255, 0.6);
+    }
+    body.light .bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.85);
+    }
+    body.light .text-white {
+    color: #1a202c !important;
+    }
+    body.light .text-gray-300 {
+    color: #4a5568;
+    }
+    body.light .bg-slate-900\/60 {
+    background-color: #edf2f7;
+    color: #1a202c;
+    }
+
+    .calendar-day {
+    @apply bg-slate-800 rounded-2xl p-4 cursor-pointer shadow-md transform transition-transform duration-300 ease-in-out hover:rotate-1 hover:scale-105 hover:z-10;
+    }
+
+    .calendar-day:hover {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+    }
+</style>
+</head>
+<body class="relative min-h-screen bg-black text-white font-sans overflow-hidden">
+
+<canvas id="bgCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+
+<main class="relative z-10 flex items-center justify-center min-h-screen px-4 py-10">
+    <section class="bg-white/5 backdrop-blur-xl p-10 rounded-3xl shadow-2xl max-w-7xl w-full transition-all duration-500 ease-in-out">
+    <div class="text-center mb-8">
+        <h1 class="text-5xl font-extrabold text-cyan-400 drop-shadow-md tracking-wide">
+        🗓️ Agenda 3D Interactiva
+        </h1>
+        <p class="text-gray-300 mt-2 text-lg">
+        Haz clic en un día para agregar, ver o copiar tus tareas
+        </p>
+    </div>
+
+    
+    <div class="flex items-center justify-between mb-6">
+        <button id="prevMonth"
+        class="px-5 py-2 bg-gradient-to-r from-cyan-700 to-cyan-500 text-white rounded-full hover:scale-105 transition transform shadow-lg hover:shadow-cyan-500/50">
+        ⬅ Anterior
+        </button>
+        <h2 id="monthYear" class="text-2xl font-semibold text-white drop-shadow"></h2>
+        <button id="nextMonth"
+        class="px-5 py-2 bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full hover:scale-105 transition transform shadow-lg hover:shadow-cyan-500/50">
+        Siguiente ➡
+        </button>
+    </div>
+
+    <div id="calendar" class="grid grid-cols-7 gap-3 text-center">
+    </div>
+    </section>
+</main>
+<div id="taskModal"
+    class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-20 transition-all duration-300">
+    <div
+    class="bg-white/10 backdrop-blur-xl p-6 rounded-2xl w-96 shadow-2xl transform scale-100 transition-all">
+    <h3 id="modalDate" class="text-xl font-bold text-cyan-300 mb-4 text-center"></h3>
+    <textarea id="taskInput" rows="4"
+        class="w-full p-3 rounded-xl bg-slate-900/60 text-white border border-cyan-400 placeholder-gray-400 focus:outline-none focus:ring focus:ring-cyan-400"></textarea>
+    <div class="flex justify-between mt-4 space-x-2">
+        <button id="copyTask" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 rounded-full transition-all shadow-md">📋 Copiar</button>
+        <div class="flex space-x-2">
+        <button id="closeModal" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-full transition-all shadow-md">Cancelar</button>
+        <button id="saveTask" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-full transition-all shadow-md">Guardar</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<button id="toggleTheme"
+    class="fixed top-4 right-4 z-30 px-4 py-2 bg-white/10 backdrop-blur-md rounded-xl text-sm text-white hover:bg-cyan-600 transition shadow-lg">
+    🌗 Cambiar tema
+</button>
+
+<script src="script.js"></script>
+<script>
+    const toggleTheme = document.getElementById('toggleTheme');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'light') {
+    body.classList.add('light');
+    }
+
+    toggleTheme.addEventListener('click', () => {
+    body.classList.toggle('light');
+    localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    document.getElementById('copyTask').addEventListener('click', () => {
+    const taskText = document.getElementById('taskInput').value;
+    navigator.clipboard.writeText(taskText).then(() => {
+        alert('Texto copiado al portapapeles');
+    });
+    });
+</script>
+</body>
+</html>
