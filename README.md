@@ -18,7 +18,7 @@ Este es un proyecto web de calendario interactivo y responsivo, desarrollado con
 ## 🧑‍💻 Tecnologías utilizadas
 
 - HTML5
-- JavaScript (Vanilla)
+- JavaScript 
 - Tailwind CSS
 - CSS (personalizado)
 - LocalStorage para persistencia del tema
