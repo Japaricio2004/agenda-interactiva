@@ -1,20 +1,24 @@
-# 📅 Agenda Interactiva
+# 🗓️ Agenda Interactiva 3D
 
-Una aplicación web moderna para gestionar tareas diarias mediante un calendario interactivo y visualmente atractivo. Desarrollada con HTML, Tailwind CSS y JavaScript.
+Este es un proyecto web de calendario interactivo y responsivo, desarrollado con **HTML**, **JavaScript** y **Tailwind CSS**. Permite a los usuarios agregar, guardar y copiar tareas por día de forma intuitiva. Incluye un diseño moderno con efectos 3D, soporte de tema claro/oscuro y se adapta perfectamente a cualquier dispositivo.
 
-## 🌟 Características
+---
 
-- Visualización de calendario por mes
-- Agregado y edición de tareas por día
-- Modal interactivo para ingresar notas
-- Copia rápida de tareas al portapapeles
-- Cambio de tema (claro/oscuro)
-- Animaciones suaves y diseño responsivo
+## 🚀 Características
 
-## 🛠️ Tecnologías utilizadas
+- 📅 Calendario dinámico por meses.
+- 📝 Agregar, guardar y copiar tareas por cada día.
+- 🎨 Interfaz responsiva con diseño 3D animado.
+- 🌗 Modo claro y oscuro (persistente con `localStorage`).
+- 📱 Adaptado a móviles, tablets y pantallas grandes.
+- 🧠 Modal interactivo para gestionar tareas fácilmente.
+
+---
+
+## 🧑‍💻 Tecnologías utilizadas
 
 - HTML5
+- JavaScript (Vanilla)
 - Tailwind CSS
-- JavaScript (DOM & localStorage)
-- Diseño responsive y efectos visuales
-2
+- CSS (personalizado)
+- LocalStorage para persistencia del tema
