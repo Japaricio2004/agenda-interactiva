@@ -7,6 +7,7 @@
 <link rel="icon" href="images/agenda.png" type="image/png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="styles.css" />
+<!-- PWA removed: manifest and theme meta deleted -->
 <style>
     * { scroll-behavior: smooth; }
     body.light {
@@ -54,25 +55,34 @@
     </div>
 
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-    <button id="prevMonth"
-        class="px-4 py-2 bg-gradient-to-r from-cyan-700 to-cyan-500 text-white rounded-full hover:scale-105 transition shadow-lg hover:shadow-cyan-500/50">
+    <button id="prevMonth" class="touch-btn px-4 py-2 bg-gradient-to-r from-cyan-700 to-cyan-500 text-white rounded-full hover:scale-105 transition shadow-lg hover:shadow-cyan-500/50">
         ⬅ Anterior
     </button>
-    <h2 id="monthYear" class="text-xl sm:text-2xl font-semibold text-white drop-shadow text-center sm:text-left"></h2>
-    <button id="nextMonth"
-        class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full hover:scale-105 transition shadow-lg hover:shadow-cyan-500/50">
+        <div class="text-center sm:text-left">
+            <h2 id="monthYear" class="text-xl sm:text-2xl font-semibold text-white drop-shadow"></h2>
+            <div id="tzLabel" class="text-xs text-gray-400 mt-1">Fechas según hora de Lima, Perú (America/Lima)</div>
+        </div>
+    <div class="flex items-center gap-2">
+      <button id="exportPdf" title="Exportar mes a PDF" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-md text-sm text-white">📄 Exportar PDF</button>
+      <button id="nextMonth" class="touch-btn px-4 py-2 bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full hover:scale-105 transition shadow-lg hover:shadow-cyan-500/50">
         Siguiente ➡
-    </button>
+      </button>
+    </div>
     </div>
 
-    <div id="calendar" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 text-center">
+    <div id="weekdays" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 text-center mb-1"></div>
+    <!-- Months overview (mobile-first): visible on small screens, hidden on desktop -->
+    <div id="monthsOverview" class="grid grid-cols-3 sm:hidden gap-3 mb-4"></div>
+
+    <div id="calendar" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 text-center hidden sm:grid" aria-live="polite">
     </div>
 </section>
 </main>
 
 <div id="taskModal"
+role="dialog" aria-modal="true" aria-labelledby="modalDate"
 class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-20 transition-all duration-300">
-<div class="bg-white/10 backdrop-blur-xl p-4 sm:p-6 rounded-2xl w-[90%] sm:w-96 shadow-2xl">
+<div class="bg-white/10 backdrop-blur-xl p-4 sm:p-6 rounded-2xl w-[90%] sm:w-96 shadow-2xl" tabindex="-1">
     <h3 id="modalDate" class="text-xl font-bold text-cyan-300 mb-4 text-center"></h3>
     <textarea id="taskInput" rows="4"
     class="w-full p-3 rounded-xl bg-slate-900/60 text-white border border-cyan-400 placeholder-gray-400 focus:outline-none focus:ring focus:ring-cyan-400"></textarea>
@@ -89,6 +99,9 @@ class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-20 tr
 </div>
 </div>
 
+<!-- Toast (feedback no intrusivo) -->
+<div id="toast" aria-live="polite" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
 <button id="toggleTheme"
 class="fixed top-4 right-4 z-30 px-4 py-2 bg-white/10 backdrop-blur-md rounded-xl text-sm text-white hover:bg-cyan-600 transition shadow-lg">
 🌗 Cambiar tema
@@ -100,6 +113,7 @@ class="fixed top-4 right-4 z-30 px-4 py-2 bg-white/10 backdrop-blur-md rounded-x
     © 2025 <span class="font-semibold text-cyan-400">Agenda Interactiva</span> —
     Desarrollado por <span class="text-white font-bold">Jorge Aparicio</span>. Todos los derechos reservados.
 </p>
+    
 </footer>
 
 <script src="script.js"></script>
@@ -115,14 +129,7 @@ toggleTheme.addEventListener('click', () => {
     body.classList.toggle('light');
     localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
 });
-
-document.getElementById('copyTask').addEventListener('click', () => {
-    const taskText = document.getElementById('taskInput').value;
-    navigator.clipboard.writeText(taskText).then(() => {
-    alert('Texto copiado al portapapeles');
-    });
-});
 </script>
-
+</script>
 </body>
 </html>
