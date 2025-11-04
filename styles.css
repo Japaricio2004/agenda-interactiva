@@ -1,13 +1,92 @@
-body {
-background: radial-gradient(circle at top, #0f172a, #1e293b);
-perspective: 1200px;
-overflow: hidden;
-}
-.card-3d {
-transform-style: preserve-3d;
-transition: transform 0.8s ease, box-shadow 0.4s;
-}
-.card-3d:hover {
-transform: rotateY(10deg) rotateX(5deg);
-box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-}
+    body {
+    background: radial-gradient(circle at top, #0f172a, #1e293b);
+    perspective: 1200px;
+    overflow: hidden;
+    }
+    .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease, box-shadow 0.4s;
+    }
+    .card-3d:hover {
+    transform: rotateY(10deg) rotateX(5deg);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .weekday-header {
+        color: #94a3b8;
+        font-weight: 600;
+    }
+
+    .today {
+        background: linear-gradient(90deg, rgba(245,158,11,0.12), rgba(34,197,94,0.06));
+    }
+
+    /* Toast */
+    #toast {
+        z-index: 60;
+    }
+
+    /* Focus outlines for keyboard users */
+    button:focus, [tabindex]:focus, textarea:focus {
+        outline: 3px solid rgba(34,211,238,0.25);
+        outline-offset: 2px;
+    }
+
+    /* Months overview styles */
+    #monthsOverview {
+        gap: 0.5rem;
+    }
+    #monthsOverview .month-tile {
+        background: rgba(15,23,42,0.6);
+        border-radius: 12px;
+        padding: 0.9rem 0.6rem;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 260ms ease, box-shadow 260ms ease, background 260ms;
+        color: #e6eef6;
+        font-weight: 600;
+    }
+    #monthsOverview .month-tile:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
+    #monthsOverview .month-tile.selected {
+        transform: scale(1.06);
+        box-shadow: 0 30px 80px rgba(2,6,23,0.6);
+    }
+
+    /* Small screens: show monthsOverview, hide calendar container */
+    @media (max-width: 640px) {
+        /* allow page scrolling on small devices so users can swipe/scroll */
+        body { overflow: auto; }
+        #monthsOverview { display: grid; grid-template-columns: repeat(3, 1fr); }
+        #calendar { display: none !important; }
+        #weekdays { display: none; }
+        #openMonths { display: none; }
+        /* hide background canvas on mobile to avoid capturing touch events and save CPU */
+        #bgCanvas { display: none !important; }
+        /* when calendar is shown (months-hidden class), show days as a week-aligned grid (7 columns)
+            Keep compact tiles but preserve weekday alignment so users understand which day is which. */
+        .months-hidden #calendar { display: grid !important; grid-template-columns: repeat(7, 1fr); gap: 0.35rem; max-height: calc(100vh - 140px); overflow-y: auto; padding-bottom: 120px; }
+        /* make day cards compact and tile-like on mobile while keeping readability */
+        .months-hidden #calendar .card-3d { padding: 0.5rem 0.6rem; border-radius: 10px; text-align: center; font-size: 0.95rem; }
+        .months-hidden #calendar .card-3d:hover { transform: translateY(-4px) scale(1.02); }
+        /* weekday headers: show all 7 weekdays aligned with the 7-column grid */
+        .months-hidden #weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.35rem; margin-bottom: 0.5rem; }
+        /* allow horizontal scrolling if the 7 columns don't fit comfortably */
+        .months-hidden #calendar, .months-hidden #weekdays { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    }
+
+    /* When monthsOverview is hidden via JS we will show the calendar */
+    .months-hidden #monthsOverview { display: none !important; }
+    .months-hidden #calendar { display: grid !important; }
+
+    /* Desktop: monthsOverview hidden by default */
+    @media (min-width: 641px) {
+        #monthsOverview { display: none; }
+        #calendar { display: grid !important; }
+        #openMonths { display: inline-block; }
+    }
+
+    /* Install banner */
+    /* install banner styles removed per user request */
